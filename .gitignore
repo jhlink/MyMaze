@@ -1,2 +1,7 @@
 vrnd-course3-starter-project.zip
-.DS_Store
+*.DS_Store
+obj
+Temp
+Library
+*.sln
+*.csproj
