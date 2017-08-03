@@ -2,22 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Key : MonoBehaviour 
+public class Key : MonoBehaviour
 {
-    //Create a reference to the KeyPoofPrefab and Door
+	public GameObject keyPoofInstance;
+	public GameObject doorInstance;
+	private bool keyCollected = false;
 
-	void Update()
+	void Update ()
 	{
 		//Not required, but for fun why not try adding a Key Floating Animation here :)
 	}
 
-	public void OnKeyClicked()
+	public void OnKeyClicked ()
 	{
-        // Instatiate the KeyPoof Prefab where this key is located
-        // Make sure the poof animates vertically
-        // Call the Unlock() method on the Door
-        // Set the Key Collected Variable to true
-        // Destroy the key. Check the Unity documentation on how to use Destroy
-    }
+		// Instatiate the KeyPoof Prefab where this key is located
+		// Make sure the poof animates vertically
+		// Call the Unlock() method on the Door
+		// Set the Key Collected Variable to true
+		// Destroy the key. Check the Unity documentation on how to use Destroy
+
+
+		copyObjectStateTo (keyPoofInstance);
+		GameObject.Instantiate (keyPoofInstance);
+		Unlock ();
+		keyCollected = true;
+		Destroy (this.gameObject);
+
+	}
+
+	private void copyObjectStateTo (GameObject targetGameObject)
+	{
+		targetGameObject.transform.position = this.transform.position;
+		targetGameObject.transform.rotation = this.transform.rotation;
+	}
+
+	public void Unlock ()
+	{
+//		doorInstance.Unlock ();
+	}
 
 }
