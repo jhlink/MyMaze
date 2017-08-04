@@ -5,7 +5,7 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
 	public GameObject keyPoofInstance;
-	public GameObject doorInstance;
+	public Door doorInstance;
 	private bool keyCollected = false;
 
 	void Update ()
@@ -21,12 +21,13 @@ public class Key : MonoBehaviour
 		// Set the Key Collected Variable to true
 		// Destroy the key. Check the Unity documentation on how to use Destroy
 
-
-		copyObjectStateTo (keyPoofInstance);
-		GameObject.Instantiate (keyPoofInstance);
-		Unlock ();
-		keyCollected = true;
-		Destroy (this.gameObject);
+		if (!keyCollected) {
+			copyObjectStateTo (keyPoofInstance);
+			GameObject.Instantiate (keyPoofInstance);
+			Unlock ();
+			keyCollected = true;
+			Destroy (this.gameObject);
+		}
 
 	}
 
@@ -38,7 +39,7 @@ public class Key : MonoBehaviour
 
 	public void Unlock ()
 	{
-//		doorInstance.Unlock ();
+		doorInstance.Unlock ();
 	}
 
 }

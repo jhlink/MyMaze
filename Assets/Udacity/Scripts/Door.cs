@@ -1,26 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Door : MonoBehaviour 
 {
-    // Create a boolean value called "locked" that can be checked in OnDoorClicked() 
-    // Create a boolean value called "opening" that can be checked in Update() 
+	public AudioClip doorLockedAndClickedAudio;
+	public AudioClip doorUnlockedAndClickedAudio;
+	public Animator doorAnimator;
+	public Animator barrierAnimator;
+
+	private AudioSource doorAudioSource;
+	private bool locked = true;
+	private bool barrierOpening = false;
+	private bool doorOpening = false;
+	private bool barrierOpen = false;
+	private bool doorOpen = false;
+
+	void Start() {
+		doorAudioSource = gameObject.GetComponent<AudioSource> ();
+		doorAudioSource.clip = doorLockedAndClickedAudio;
+	}
 
     void Update() {
-        // If the door is opening and it is not fully raised
-            // Animate the door raising up
+
+		barrierOpen = barrierAnimator.GetCurrentAnimatorStateInfo (0).IsName ("BarrierOpened");
+		doorOpen = doorAnimator.GetCurrentAnimatorStateInfo (0).IsName ("DoorOpened");
+
+		print ("This is door open = " + doorOpen);
+
+		if (barrierOpening && !barrierOpen) {
+			barrierOpening = !barrierOpen ? false : true;
+			barrierAnimator.SetTrigger ("raiseBarrier");
+		} else if (doorOpening && !doorOpen) {
+			doorOpening = !doorOpen ? false : true;
+			doorAnimator.SetTrigger ("openDoor");
+			disableCollider ();
+		}
     }
 
+	void disableCollider() {
+		BoxCollider colliderObject = gameObject.GetComponent<BoxCollider> ();
+		colliderObject.enabled = false;
+	}
+
     public void OnDoorClicked() {
-        // If the door is clicked and unlocked
-            // Set the "opening" boolean to true
-        // (optionally) Else
-            // Play a sound to indicate the door is locked
+		if (barrierOpen && doorOpen) {
+			return;
+		}
+
+		if (barrierOpen) {
+			if (!locked) {
+				doorOpening = true;
+			}
+			doorAudioSource.Play ();
+		}
     }
 
     public void Unlock()
     {
-        // You'll need to set "locked" to false here
-    }
+		barrierOpening = true;
+		locked = false;
+		doorAudioSource.clip = doorUnlockedAndClickedAudio;
+	}
 }
