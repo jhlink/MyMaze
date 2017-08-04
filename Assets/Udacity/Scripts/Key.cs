@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Key : MonoBehaviour
 {
 	public GameObject keyPoofInstance;
 	public Door doorInstance;
+	public Text keyFoundUI;
+
 	private bool keyCollected = false;
 
 	void Update ()
@@ -22,6 +25,7 @@ public class Key : MonoBehaviour
 		// Destroy the key. Check the Unity documentation on how to use Destroy
 
 		if (!keyCollected) {
+			updateKeyScoreUI ();
 			copyObjectStateTo (keyPoofInstance);
 			GameObject.Instantiate (keyPoofInstance);
 			Unlock ();
@@ -30,6 +34,12 @@ public class Key : MonoBehaviour
 		}
 
 	}
+
+	public void updateKeyScoreUI() {
+		KeyCounter coinCountingScript = keyFoundUI.GetComponent<KeyCounter> ();
+		coinCountingScript.foundKey ();
+	}
+
 
 	private void copyObjectStateTo (GameObject targetGameObject)
 	{

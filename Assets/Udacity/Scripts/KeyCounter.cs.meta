@@ -1,12 +1,10 @@
 fileFormatVersion: 2
-guid: 4259efea429e3458b997fe590ca4b9f1
-timeCreated: 1501817087
+guid: bb5349650ef1845d493b38c795bd969d
+timeCreated: 1501814909
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - coinPoofInstance: {instanceID: 0}
-  - coinCountScore: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
