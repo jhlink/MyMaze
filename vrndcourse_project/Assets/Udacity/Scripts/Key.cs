@@ -11,11 +11,6 @@ public class Key : MonoBehaviour
 
 	private bool keyCollected = false;
 
-	void Update ()
-	{
-		//Not required, but for fun why not try adding a Key Floating Animation here :)
-	}
-
 	public void OnKeyClicked ()
 	{
 		// Instatiate the KeyPoof Prefab where this key is located
@@ -25,8 +20,8 @@ public class Key : MonoBehaviour
 		// Destroy the key. Check the Unity documentation on how to use Destroy
 
 		if (!keyCollected) {
-			updateKeyScoreUI ();
-			copyObjectStateTo (keyPoofInstance);
+			UpdateKeyScoreUI ();
+			CopyObjectStateTo (keyPoofInstance);
 			GameObject.Instantiate (keyPoofInstance);
 			Unlock ();
 			keyCollected = true;
@@ -35,13 +30,14 @@ public class Key : MonoBehaviour
 
 	}
 
-	public void updateKeyScoreUI() {
+	public void UpdateKeyScoreUI ()
+	{
 		KeyCounter coinCountingScript = keyFoundUI.GetComponent<KeyCounter> ();
-		coinCountingScript.foundKey ();
+		coinCountingScript.FoundKey ();
 	}
 
 
-	private void copyObjectStateTo (GameObject targetGameObject)
+	private void CopyObjectStateTo (GameObject targetGameObject)
 	{
 		targetGameObject.transform.position = this.transform.position;
 		targetGameObject.transform.rotation = this.transform.rotation;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Door : MonoBehaviour 
+public class Door : MonoBehaviour
 {
 	public AudioClip doorLockedAndClickedAudio;
 	public AudioClip doorUnlockedAndClickedAudio;
@@ -17,12 +17,14 @@ public class Door : MonoBehaviour
 	private bool barrierOpen = false;
 	private bool doorOpen = false;
 
-	void Start() {
+	void Start ()
+	{
 		doorAudioSource = gameObject.GetComponent<AudioSource> ();
 		doorAudioSource.clip = doorLockedAndClickedAudio;
 	}
 
-    void Update() {
+	void Update ()
+	{
 
 		barrierOpen = barrierAnimator.GetCurrentAnimatorStateInfo (0).IsName ("BarrierOpened");
 		doorOpen = doorAnimator.GetCurrentAnimatorStateInfo (0).IsName ("DoorOpened");
@@ -33,16 +35,18 @@ public class Door : MonoBehaviour
 		} else if (doorOpening && !doorOpen) {
 			doorOpening = !doorOpen ? false : true;
 			doorAnimator.SetTrigger ("openDoor");
-			disableCollider ();
+			DisableCollider ();
 		}
-    }
+	}
 
-	void disableCollider() {
+	void DisableCollider ()
+	{
 		BoxCollider colliderObject = gameObject.GetComponent<BoxCollider> ();
 		colliderObject.enabled = false;
 	}
 
-    public void OnDoorClicked() {
+	public void OnDoorClicked ()
+	{
 		if (barrierOpen && doorOpen) {
 			return;
 		}
@@ -53,10 +57,10 @@ public class Door : MonoBehaviour
 			}
 			doorAudioSource.Play ();
 		}
-    }
+	}
 
-    public void Unlock()
-    {
+	public void Unlock ()
+	{
 		barrierOpening = true;
 		locked = false;
 		doorAudioSource.clip = doorUnlockedAndClickedAudio;

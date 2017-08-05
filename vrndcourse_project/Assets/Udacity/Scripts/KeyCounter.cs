@@ -14,7 +14,8 @@ public class KeyCounter: MonoBehaviour
 		keyCounterScore.text = "Key Found: No";
 	}
 
-	public void foundKey() {
+	public void FoundKey ()
+	{
 		keyCounterScore.text = "Key Found: Yes";
 	}
 

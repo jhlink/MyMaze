@@ -15,7 +15,8 @@ public class CoinCounter: MonoBehaviour
 		coinCountScore.text = "Coins: 0";
 	}
 
-	public void incrementCoinCount() {
+	public void IncrementCoinCount ()
+	{
 		coinCount++;
 	}
 
